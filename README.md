@@ -5,7 +5,7 @@ This CS:GO player rating system performs win probability prediction and win prob
 ## Setup
 
 1. Get all the python packages used in the codebase, run `pip install -r requirements.txt`.
-2. If you wish to use demo parser to create a dataset from demo files, get the submodules when cloning this repositoriy using `--recurse-submodules` flag. Follow the setup instructions in their [`README.md`](https://github.com/pnxenopoulos/csgo/blob/master/README.md) file.
+2. If you wish to use demo parser to create a dataset from demo files, get the submodules when cloning this repositoriy using `--recurse-submodules` flag. Follow the setup instructions in their [`README.md`](scrape_parse/csgo/README.md) file.
 
 ## Running Components
 
@@ -21,7 +21,7 @@ This script takes in a date range as two command line arguments (start and end d
 
 `python download_parse.py [path to scraper results]`
 
-This script takes a command line argument of the path to a JSON file of the format output by the demo link  scraper. Using the download links in the JSON, it downloads the demos for each match and then parses them using the demo parser outputting a collection of CSV files for each game that gets downloaded and parsed. It also outputs a file `redirects.json` containing the resolved URL of the download links (so we can see the info contained in the file name before downloading it).
+This script takes a command line argument of the path to a JSON file of the format output by the demo link  scraper. Using the download links in the JSON, it downloads the demo replay files for each match and then parses them using the demo parser outputting a collection of CSV files for each game that gets downloaded and parsed. It also outputs a file `redirects.json` containing the resolved URL of the download links (so we can see the info contained in the file name before downloading it).
 
 #### Data Merger [`merge.py`](scrape_parse/merge.py)
 
