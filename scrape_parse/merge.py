@@ -17,6 +17,7 @@ def main(results_json, redirects_json):
         combined_csv = csv_type + '.csv'
 
         first = True
+        num_rows_processed = 0
 
         for i, result in results.items():
             print(i)
@@ -55,25 +56,27 @@ def main(results_json, redirects_json):
 
                 match_df['MapName'] = name_conversions[result['map']]
 
+            # Reset indexing and rearrange columns
+            match_df.reset_index(drop=True, inplace=True)
+            match_df.index += num_rows_processed
+            match_cols = list(match_df)
+
+            for colname in reversed(['MatchId', 'MapName', 'RoundNum', 'Tick']):
+                if colname not in match_cols:
+                    continue
+
+                match_cols.insert(0, match_cols.pop(match_cols.index(colname)))
+
+            match_df = match_df.loc[:, match_cols]
+
             if first:
-                combined_df = match_df
+                match_df.to_csv(combined_csv)
                 first = False
             else:
-                combined_df = combined_df.append(match_df)
+                match_df.to_csv(combined_csv, mode='a', header=False)
 
-        # Reset indexing and rearrange columns
-        combined_df.reset_index(drop=True, inplace=True)
-        combined_cols = list(combined_df)
+            num_rows_processed += match_df.shape[0]
 
-        for colname in reversed(['MatchId', 'MapName', 'RoundNum', 'Tick']):
-            if colname not in combined_cols:
-                continue
-
-            combined_cols.insert(0, combined_cols.pop(combined_cols.index(colname)))
-
-        combined_df = combined_df.loc[:, combined_cols]
-
-        combined_df.to_csv(combined_csv)
         # All CSVs need MatchId, MapName, RoundNum, Tick as first 4 columns
         # Frames needs RoundNum,MatchId,MapName
 
