@@ -1,3 +1,0 @@
-[submodule "scrape_parse/csgo"]
-	path = scrape_parse/csgo
-	url = https://github.com/pnxenopoulos/csgo.git
