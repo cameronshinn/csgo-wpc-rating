@@ -13,11 +13,13 @@ def main(results_json, redirects_json):
         redirects = json.load(f)
 
     for csv_type in ['BombEvents', 'Damages', 'Flashes', 'Frames', 'Kills', 'PlayerFrames', 'Rounds']:
+        print(f'\nCreating {csv_type}.csv\n')
         combined_csv = csv_type + '.csv'
 
         first = True
 
         for i, result in results.items():
+            print(i)
             demo_link = result['demo_link']
 
             try:
@@ -30,6 +32,10 @@ def main(results_json, redirects_json):
             match_id = rar_basename if rar_basename.endswith(map) else f'{rar_basename}-{map}'
             match_data_dir = os.path.join(CSV_DIR, match_id)
             match_csv = os.path.join(match_data_dir, f'{match_id}_{csv_type}.csv')
+
+            if not os.path.exists(match_data_dir) or os.listdir(match_data_dir) == []:
+                continue
+
             match_df = pd.read_csv(match_csv, index_col=0)
 
             if csv_type == 'Frames':
@@ -70,8 +76,6 @@ def main(results_json, redirects_json):
         combined_df.to_csv(combined_csv)
         # All CSVs need MatchId, MapName, RoundNum, Tick as first 4 columns
         # Frames needs RoundNum,MatchId,MapName
-
-
 
 if __name__ == '__main__':
     main(sys.argv[1], sys.argv[2])
