@@ -4,3 +4,4 @@
 *.dem
 *.pyc
 *-missing-demo.txt
+!toy_dataset/*.csv

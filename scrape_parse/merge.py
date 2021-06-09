@@ -18,9 +18,6 @@ def main(results_json, redirects_json):
         first = True
 
         for i, result in results.items():
-            if int(i) > 20:
-                break
-
             demo_link = result['demo_link']
 
             try:

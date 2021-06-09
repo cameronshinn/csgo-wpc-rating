@@ -2,3 +2,6 @@ pandas
 numpy
 beautifulsoup4
 rarfile
+scikit-learn
+xgboost
+catboost
