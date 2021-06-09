@@ -5,3 +5,4 @@ rarfile
 scikit-learn
 xgboost
 catboost
+tqdm
