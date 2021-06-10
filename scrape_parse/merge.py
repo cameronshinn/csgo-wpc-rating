@@ -5,6 +5,8 @@ import sys
 
 CSV_DIR = 'csvs'
 
+CSV_TYPES = ['BombEvents', 'Damages', 'Flashes', 'Frames', 'Kills', 'PlayerFrames', 'Rounds']
+
 def main(results_json, redirects_json):
     with open(results_json) as f:
         results = json.load(f)
@@ -12,7 +14,7 @@ def main(results_json, redirects_json):
     with open(redirects_json) as f:
         redirects = json.load(f)
 
-    for csv_type in ['BombEvents', 'Damages', 'Flashes', 'Frames', 'Kills', 'PlayerFrames', 'Rounds']:
+    for csv_type in CSV_TYPES:
         print(f'\nCreating {csv_type}.csv\n')
         combined_csv = csv_type + '.csv'
 
@@ -37,6 +39,24 @@ def main(results_json, redirects_json):
             if not os.path.exists(match_data_dir) or os.listdir(match_data_dir) == []:
                 continue
 
+            # Make sure all types of CSVs are in the directory
+            missing = False
+            for t in CSV_TYPES:
+                dir_has_type = False
+                for file in os.listdir(match_data_dir):
+                    if file.endswith(t + '.csv'):
+                        dir_has_type = True
+
+                if not dir_has_type:
+                    missing = True
+                    break
+
+            if missing:
+                print(match_data_dir, 'is missing CSV types!')
+                continue
+
+
+            # match_df = pd.read_csv(match_csv, index_col=0, dtype={'AttackerSteamId': int, 'VictimSteamId': int})
             match_df = pd.read_csv(match_csv, index_col=0)
 
             if csv_type == 'Frames':

@@ -1,6 +1,6 @@
 # CS:GO WPC Rating
 
-This CS:GO player rating system performs win probability prediction and win probabilty change attribution to rate players based on how their actions change their team's chances of winning. Detalis of the sysem are explained in the [`REPORT.md`](REPORT.md) file.
+This CS:GO player rating system performs win probability prediction using machine learning and win probabilty change attribution to rate players based on how their actions change their team's chances of winning. Detalis of the system are explained in the [`REPORT.md`](REPORT.md) file.
 
 ## Setup
 
@@ -31,8 +31,10 @@ This script takes two command line arguments, the results JSON file output by th
 
 ### Model Fitting
 
-#### Dataset Preprocessing
+#### Dataset Preprocessing [`create_game_states.ipynb`](create_game_states.ipynb)
 
-#### Model Fitting and Hyperparameter Search
+This notebook performs the data munging and feature engineering from the dataset. It uses `Damages.csv`, `Kills.csv`, `BombEvents.csv`, `PlayerFrames.csv`, `Rounds.csv`. Most of this data is event-based (rows for each event) and so this script uses these events assemble a game state every time any event occurs. It outputs a CSV file `game_states.csv`.
 
-### Model Inference
+#### Model Fitting and Hyperparameter Search [`models.ipynb`](models.ipynb)
+
+This script does the preprocssing on the game states dataframe and then fits models to that dataset. The preprocessing is just scaling/standardization and encoding dummies for categorical variables. The models get fit are linear regression, CatBoost and XGBoost. A hyperparameter search is performed when fitting the models, comparing different sets of hyperparameters via the log loss on the validation set. The final models get saved as files.
