@@ -5,3 +5,4 @@
 *.pyc
 *-missing-demo.txt
 catboost_info/
+!example_round.csv
