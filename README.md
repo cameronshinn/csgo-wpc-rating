@@ -33,7 +33,7 @@ This script takes two command line arguments, the results JSON file output by th
 
 #### Dataset Preprocessing [`create_game_states.ipynb`](create_game_states.ipynb)
 
-This notebook performs the data munging and feature engineering from the dataset. It uses `Damages.csv`, `Kills.csv`, `BombEvents.csv`, `PlayerFrames.csv`, `Rounds.csv`. Most of this data is event-based (rows for each event) and so this script uses these events assemble a game state every time any event occurs. It outputs a CSV file `game_states.csv`.
+This notebook performs the data munging and feature extraction from the dataset. It uses `Damages.csv`, `Kills.csv`, `BombEvents.csv`, `PlayerFrames.csv`, `Rounds.csv`. Most of this data is event-based (rows for each event) and so this script uses these events assemble a game state every time any event occurs. It outputs a CSV file `game_states.csv`.
 
 #### Model Fitting and Hyperparameter Search [`models.ipynb`](models.ipynb)
 
