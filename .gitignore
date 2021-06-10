@@ -4,3 +4,4 @@
 *.dem
 *.pyc
 *-missing-demo.txt
+catboost_info/
